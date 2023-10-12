@@ -4,27 +4,27 @@ const validator = require('validator');
 const movieSchema = new mongoose.Schema({
   country: {
     type: String,
-    required: true,
+    required: [true, 'Поле не может быть пустым'],
   },
   director: {
     type: String,
-    required: true,
+    required: [true, 'Поле не может быть пустым'],
   },
   duration: {
     type: Number,
-    required: true,
+    required: [true, 'Поле не может быть пустым'],
   },
   year: {
     type: String,
-    required: true,
+    required: [true, 'Поле не может быть пустым'],
   },
   description: {
     type: String,
-    required: true,
+    required: [true, 'Поле не может быть пустым'],
   },
   image: {
     type: String,
-    required: true,
+    required: [true, 'Поле не может быть пустым'],
     validate: {
       validator: (url) => validator.isURL(url),
       message: 'Некорректный URL',
@@ -32,7 +32,7 @@ const movieSchema = new mongoose.Schema({
   },
   trailerLink: {
     type: String,
-    required: true,
+    required: [true, 'Поле не может быть пустым'],
     validate: {
       validator: (url) => validator.isURL(url),
       message: 'Некорректный URL',
@@ -40,7 +40,7 @@ const movieSchema = new mongoose.Schema({
   },
   thumbnail: {
     type: String,
-    required: true,
+    required: [true, 'Поле не может быть пустым'],
     validate: {
       validator: (url) => validator.isURL(url),
       message: 'Некорректный URL',
@@ -48,20 +48,20 @@ const movieSchema = new mongoose.Schema({
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
+    required: [true, 'Поле не может быть пустым'],
     ref: 'user',
   },
   movieId: {
     type: Number,
-    required: true,
+    required: [true, 'Поле не может быть пустым'],
   },
   nameRU: {
     type: String,
-    required: true,
+    required: [true, 'Поле не может быть пустым'],
   },
   nameEN: {
     type: String,
-    required: true,
+    required: [true, 'Поле не может быть пустым'],
   },
 }, { versionKey: false });
 
