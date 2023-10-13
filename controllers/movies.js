@@ -23,7 +23,7 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  Movie.findById(req.params.moveId)
+  Movie.findById(req.params.movieId)
     .then((movie) => {
       if (!movie.owner.equals(req.user._id)) {
         throw new ForbiddenError('Доступ запрещен');

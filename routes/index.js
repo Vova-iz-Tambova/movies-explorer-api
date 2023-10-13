@@ -1,13 +1,24 @@
 const router = require('express').Router();
 const auth = require('../middlewares/auth');
-const { getUser, updateUser } = require('../controllers/users');
+const NotFoundError = require('../errors/not-found-err');
 const { getMovies, createMovie, deleteMovie } = require('../controllers/movies');
+const {
+  getUser, updateUser, createUser, login,
+} = require('../controllers/users');
 
-router.get('/users/me', auth, getUser);
-router.patch('/users/me', auth, updateUser);
+router.post('/signup', createUser);
+router.post('/signin', login);
 
-router.get('/movies', auth, getMovies);
-router.post('/movies', auth, createMovie);
-router.delete('/movies/_id', auth, deleteMovie);
+router.use(auth);
 
+router.get('/users/me', getUser);
+router.patch('/users/me', updateUser);
+
+router.get('/movies', getMovies);
+router.post('/movies', createMovie);
+router.delete('/movies/:movieId', deleteMovie);
+
+router.use('*', () => {
+  throw new NotFoundError('Страница не найдена');
+});
 module.exports = router;
