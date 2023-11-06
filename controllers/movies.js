@@ -1,6 +1,7 @@
 const Movie = require('../models/movie');
 const BadRequestError = require('../errors/bad-request-err');
 const ForbiddenError = require('../errors/forbidden-err');
+const NotFoundError = require('../errors/not-found-err');
 
 module.exports.getMovies = (req, res, next) => {
   Movie.find({ owner: req.user._id })
@@ -25,10 +26,13 @@ module.exports.createMovie = (req, res, next) => {
 module.exports.deleteMovie = (req, res, next) => {
   Movie.findById(req.params.movieId)
     .then((movie) => {
+      if (!movie) {
+        throw new NotFoundError('Фильм по указанному _id не найден');
+      }
       if (!movie.owner.equals(req.user._id)) {
         throw new ForbiddenError('Доступ запрещен');
       }
-      Movie.deleteOne(movie).then(res.send(movie));
+      return Movie.deleteOne(movie).then(res.send(movie));
     })
     .catch(next);
 };
