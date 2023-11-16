@@ -25,7 +25,7 @@ module.exports.updateUserRequestValidation = celebrate({
 
 module.exports.deleteMovieRequestValidation = celebrate({
   params: Joi.object().keys({
-    cardId: Joi.string().required().hex().length(24),
+    id: Joi.string().required().hex().length(24),
   }),
 });
 

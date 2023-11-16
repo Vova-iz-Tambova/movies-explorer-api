@@ -24,10 +24,10 @@ module.exports.createMovie = (req, res, next) => {
 };
 
 module.exports.deleteMovie = (req, res, next) => {
-  Movie.findById(req.params.movieId)
+  Movie.findById(req.params.id)
     .then((movie) => {
       if (!movie) {
-        throw new NotFoundError('Фильм по указанному _id не найден');
+        throw new NotFoundError('Фильм по указанному movieId не найден');
       }
       if (!movie.owner.equals(req.user._id)) {
         throw new ForbiddenError('Доступ запрещен');
